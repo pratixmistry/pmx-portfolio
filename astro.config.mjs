@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
 import rehypePrettyCode from "rehype-pretty-code";
 import { remarkCodeMeta } from "./src/lib/remark-code-meta.ts";
 import { CONFIG } from "./src/data/config.ts";
@@ -21,18 +22,24 @@ export default defineConfig({
   site: CONFIG.site.url,
   trailingSlash: "never",
 
+  markdown: {
+    syntaxHighlight: false, // handled by rehype-pretty-code
+    // Astro 7 defaults to the "satteri" processor, which ignores remark/rehype
+    // plugins; the unified processor keeps code titles and highlighting working.
+    processor: unified({
+      gfm: true,
+      remarkPlugins: [remarkCodeMeta],
+      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    }),
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
 
   integrations: [
     react(),
-    mdx({
-      gfm: true, // tables, task lists, etc. (uses MDX's bundled remark-gfm)
-      remarkPlugins: [remarkCodeMeta],
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
-      syntaxHighlight: false,
-    }),
+    mdx(), // inherits markdown.processor
     sitemap(),
   ],
 });
