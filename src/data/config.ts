@@ -3,7 +3,7 @@ export const CONFIG = {
   // Site Settings
   // ---------------------------------------------------------------------------
   site: {
-    url: "https://pratixmistry.xyz",
+    url: "https://www.pratixmistry.xyz",
     locale: "en_US",
   },
 
@@ -17,19 +17,10 @@ export const CONFIG = {
   },
 
   // ---------------------------------------------------------------------------
-  // Typography
-  // ---------------------------------------------------------------------------
-  typography: {
-    // Base font size as a percentage. 100 = browser default (16px).
-    // 110 = 10% larger or 90 = 10% smaller, across all text, headings, and links simultaneously.
-    baseFontSize: 115,
-  },
-
-  // ---------------------------------------------------------------------------
   // Blog Settings
   // ---------------------------------------------------------------------------
   blog: {
-    postsPerPage: 10,
+    postsPerPage: 5,
   },
 
   // ---------------------------------------------------------------------------

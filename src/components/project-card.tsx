@@ -1,10 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn, toParagraphs } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import Markdown from "react-markdown";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -17,6 +14,10 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
+      width={1200}
+      height={675}
+      loading="lazy"
+      decoding="async"
       className="w-full h-full object-top object-cover object-contain"
       onError={() => setImageError(true)}
     />
@@ -110,7 +111,9 @@ export function ProjectCard({
           </a>
         </div>
         <div className="text-xs flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
-          <Markdown>{description}</Markdown>
+          {toParagraphs(description).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-auto">

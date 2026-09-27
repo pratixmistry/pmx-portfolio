@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import BlogList from "@/components/BlogList";
+import { getCollection } from "astro:content";
+import { CONFIG } from "@/data/config";
+
+// Statically generates /blog, /blog/2, /blog/3, ...
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("blog");
+  const sortedPosts = [...posts].sort((a, b) => {
+    if (new Date(a.data.publishedAt) > new Date(b.data.publishedAt)) return -1;
+    return 1;
+  });
+  return paginate(sortedPosts, { pageSize: CONFIG.blog.postsPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const posts = page.data.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  publishedAt: post.data.publishedAt,
+}));
+---
+
+<Layout title="Blog" description="Thoughts on software development, life, and more.">
+  <BlogList
+    client:load
+    posts={posts}
+    allPostsCount={page.total}
+    pagination={{
+      page: page.currentPage,
+      totalPages: page.lastPage,
+      prevUrl: page.url.prev,
+      nextUrl: page.url.next,
+    }}
+    pageSize={page.size}
+  />
+</Layout>

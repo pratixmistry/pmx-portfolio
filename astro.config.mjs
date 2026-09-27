@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import remarkGfm from "remark-gfm";
+import { unified } from "@astrojs/markdown-remark";
 import rehypePrettyCode from "rehype-pretty-code";
 import { remarkCodeMeta } from "./src/lib/remark-code-meta.ts";
 import { CONFIG } from "./src/data/config.ts";
@@ -21,9 +20,18 @@ const prettyCodeOptions = {
 
 export default defineConfig({
   site: CONFIG.site.url,
-  output: "server",
+  trailingSlash: "never",
 
-  adapter: vercel(),
+  markdown: {
+    syntaxHighlight: false, // handled by rehype-pretty-code
+    // Astro 7 defaults to the "satteri" processor, which ignores remark/rehype
+    // plugins; the unified processor keeps code titles and highlighting working.
+    processor: unified({
+      gfm: true,
+      remarkPlugins: [remarkCodeMeta],
+      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    }),
+  },
 
   vite: {
     plugins: [tailwindcss()],
@@ -31,17 +39,7 @@ export default defineConfig({
 
   integrations: [
     react(),
-    mdx({
-      remarkPlugins: [remarkGfm, remarkCodeMeta],
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
-      syntaxHighlight: false,
-    }),
+    mdx(), // inherits markdown.processor
     sitemap(),
   ],
-
-  markdown: {
-    syntaxHighlight: false,
-    remarkPlugins: [remarkGfm, remarkCodeMeta],
-    rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
-  },
 });

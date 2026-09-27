@@ -1,11 +1,11 @@
 import React from "react";
+import { MotionConfig } from "motion/react";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
-import Markdown from "react-markdown";
+import { toParagraphs } from "@/lib/utils";
 import ContactSection from "@/components/section/contact-section";
-import HackathonsSection from "@/components/section/hackathons-section";
 import PhotosSection from "@/components/section/photos-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
@@ -26,7 +26,9 @@ const sectionComponents: Record<string, React.ReactNode> = {
         </div>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <div className="prose max-w-full text-pretty sm:text-lg leading-snug text-muted-foreground dark:prose-invert text-justify">
-            <Markdown>{DATA.summary}</Markdown>
+            {toParagraphs(DATA.summary).map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </BlurFade>
       </div>
@@ -132,9 +134,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
                     className="w-full h-full object-contain"
                   />
                 </span>
-                {/* {skill.icon && (
-                  <skill.icon className="rounded overflow-hidden object-contain" />
-                )} */}
                 <span className="absolute bottom-full left-1/2 z-20 mb-3 -translate-x-1/2 whitespace-nowrap rounded bg-primary px-3 py-1.5 text-xs font-medium text-background opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">
                   {skill.name}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-primary"></div>
@@ -147,13 +146,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
     </section>
   ),
   projects: <ProjectsSection />,
-  hackathons: (
-    <section id="hackathons">
-      <BlurFade delay={BLUR_FADE_DELAY * 13}>
-        <HackathonsSection />
-      </BlurFade>
-    </section>
-  ),
   photos: <PhotosSection />,
   contact: (
     <section id="contact">
@@ -171,50 +163,52 @@ export default function HomePage() {
     .map(([key]) => key);
 
   return (
-    <main className="min-h-dvh flex flex-col gap-12 sm:gap-14 relative">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-            <Avatar className="size-24 md:size-31 border rounded-full shadow-lg ring-4 ring-muted">
-              <AvatarImage
-                alt={DATA.name}
-                src={DATA.avatarUrl}
-                className="object-cover"
-              />
-              <AvatarFallback>{DATA.initials}</AvatarFallback>
-            </Avatar>
-          </BlurFade>
-          <div className="gap-2 gap-y-6 flex  md:flex-row justify-between items-center">
-            <div className="gap-1 flex flex-col">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="font-bold text-3xl sm:text-4xl lg:text-3xl tracking-tight"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-              />
-              <BlurFadeText
-                className="text-muted-foreground max-w-[600px] "
-                delay={BLUR_FADE_DELAY}
-                text={DATA.designation}
-              />
-            </div>
-            <div>
-              <a
-                href="https://x.com/pratixmistry"
-                target="_blank"
-                rel="noopener noreferrer"
-                // className="inline-flex bg-neutral-800 rounded-full px-4 py-2 text-white font-medium"
-                className="inline-flex bg-primary rounded-full px-4 py-2 text-background font-medium"
-              >
-                Follow on X
-              </a>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-dvh flex flex-col gap-12 sm:gap-14 relative">
+        <section id="hero">
+          <div className="mx-auto w-full max-w-2xl space-y-6">
+            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
+              <Avatar className="size-24 md:size-31 border rounded-full shadow-lg ring-4 ring-muted">
+                <AvatarImage
+                  alt={DATA.name}
+                  src={DATA.avatarUrl}
+                  className="object-cover"
+                />
+                <AvatarFallback>{DATA.initials}</AvatarFallback>
+              </Avatar>
+            </BlurFade>
+            <div className="gap-2 gap-y-6 flex  md:flex-row justify-between items-center">
+              <div className="gap-1 flex flex-col">
+                <BlurFadeText
+                  as="h1"
+                  delay={BLUR_FADE_DELAY}
+                  className="font-bold text-3xl sm:text-4xl lg:text-3xl tracking-tight"
+                  yOffset={8}
+                  text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                />
+                <BlurFadeText
+                  className="text-muted-foreground max-w-[600px] "
+                  delay={BLUR_FADE_DELAY}
+                  text={DATA.designation}
+                />
+              </div>
+              <BlurFade delay={BLUR_FADE_DELAY}>
+                <a
+                  href={DATA.contact.social.X.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex bg-primary rounded-full px-4 py-2 text-background font-medium"
+                >
+                  Follow on X
+                </a>
+              </BlurFade>
             </div>
           </div>
-        </div>
-      </section>
-      {orderedSections.map((key) => (
-        <React.Fragment key={key}>{sectionComponents[key]}</React.Fragment>
-      ))}
-    </main>
+        </section>
+        {orderedSections.map((key) => (
+          <React.Fragment key={key}>{sectionComponents[key]}</React.Fragment>
+        ))}
+      </div>
+    </MotionConfig>
   );
 }
