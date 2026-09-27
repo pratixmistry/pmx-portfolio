@@ -36,6 +36,12 @@ export const DATA = {
       label: "Selected Projects",
       heading: "Check out my latest work",
       text: "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
+      // Client work under NDA: linked as a separate list, not shown individually
+      moreLink: {
+        label: "View Webflow Projects",
+        note: "More Webflow client work is under NDA, so it's listed separately in a private document.",
+        href: "https://docs.google.com/document/d/1jP1jSlvgenZeVESmgiCDBDNDJGL438McsCGZywNHju4/edit?tab=t.0",
+      },
     },
     photos: {
       order: 6,

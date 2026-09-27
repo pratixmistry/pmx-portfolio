@@ -192,7 +192,7 @@ export default function HomePage() {
                   text={DATA.designation}
                 />
               </div>
-              <div>
+              <BlurFade delay={BLUR_FADE_DELAY}>
                 <a
                   href={DATA.contact.social.X.url}
                   target="_blank"
@@ -201,7 +201,7 @@ export default function HomePage() {
                 >
                   Follow on X
                 </a>
-              </div>
+              </BlurFade>
             </div>
           </div>
         </section>
