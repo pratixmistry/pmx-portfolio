@@ -38,6 +38,8 @@ export default function PhotosSection() {
                 <img
                   src={photo.src}
                   alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
                   className="block h-auto w-full"
                   loading="lazy"
                   decoding="async"
