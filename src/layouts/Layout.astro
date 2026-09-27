@@ -10,6 +10,9 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const {
@@ -17,9 +20,14 @@ const {
   description = DATA.description,
   image,
   canonicalURL,
+  type = "website",
+  publishedTime,
+  modifiedTime,
 } = Astro.props;
 
-const canonical = canonicalURL ?? new URL(Astro.url.pathname, CONFIG.site.url).href;
+// No trailing slash except for the root, matching `trailingSlash: "never"`
+const pathname = Astro.url.pathname.replace(/(.)\/$/, "$1");
+const canonical = canonicalURL ?? new URL(pathname, CONFIG.site.url).href;
 const pageTitle = title
   ? CONFIG.seo.titleTemplate.replace("%s", title).replace("%n", DATA.siteName)
   : `${DATA.name} - ${DATA.designation}`;
@@ -48,6 +56,9 @@ const structuredData =
           image: `${CONFIG.site.url}${DATA.avatarUrl}`,
           jobTitle: DATA.designation,
           email: DATA.contact.email,
+          sameAs: Object.values(DATA.contact.social)
+            .map((social) => social.url)
+            .filter((url) => url.startsWith("http")),
         },
       ]).replace(/</g, "\\u003c")
     : undefined;
@@ -61,16 +72,12 @@ const structuredData =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- FOUC prevention: apply stored theme before first paint -->
+    <!-- FOUC prevention: apply stored theme before first paint.
+         Defaults to light to match NavbarIsland's ThemeProvider (defaultTheme="light"). -->
     <script is:inline>
       (function () {
         try {
-          var theme = localStorage.getItem("theme");
-          if (
-            theme === "dark" ||
-            (!theme &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-          ) {
+          if (localStorage.getItem("theme") === "dark") {
             document.documentElement.classList.add("dark");
           } else {
             document.documentElement.classList.remove("dark");
@@ -150,7 +157,9 @@ const structuredData =
     />
 
     <!-- OpenGraph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -183,9 +192,9 @@ const structuredData =
     </div>
 
     <!-- Main content wrapper - matches template's z-10 container exactly -->
-    <div class="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-5">
+    <main class="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-5">
       <slot />
-    </div>
+    </main>
 
     <!-- Navbar: ThemeProvider + TooltipProvider + Navbar all in one React island -->
     <NavbarIsland client:load />

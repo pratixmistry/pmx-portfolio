@@ -2,7 +2,7 @@
 
 My personal portfolio website, built with Astro, React, TypeScript, Tailwind CSS, and MDX.
 
-🌐 [pratixmistry.xyz](https://pratixmistry.xyz)
+🌐 [pratixmistry.xyz](https://www.pratixmistry.xyz)
 
 ---
 
@@ -33,7 +33,6 @@ Most of the portfolio content is separated from the UI, so you usually don't nee
 | Social & contact links    | `src/data/resume.tsx`             |
 | Site URL & SEO            | `src/data/config.ts`              |
 | Theme colors              | `src/data/config.ts`              |
-| Font size                 | `src/data/config.ts`              |
 | Fonts                     | `src/styles/global.css`           |
 | Blog posts                | `src/content/blog/`               |
 | UI / design               | `src/components/`                 |
@@ -70,7 +69,6 @@ You can edit:
 - Education
 - Projects
 - Photos
-- Hackathons, if used
 
 For normal content changes, start here before modifying any components.
 
@@ -90,8 +88,7 @@ This includes:
 - Locale
 - SEO settings
 - Theme colors
-- Typography
-- Base font size
+- Blog posts per page
 - Other global configuration
 
 Example:
@@ -99,7 +96,7 @@ Example:
 ```ts
 export const CONFIG = {
   site: {
-    url: "https://pratixmistry.xyz",
+    url: "https://www.pratixmistry.xyz",
     locale: "en_US",
   },
 
@@ -107,7 +104,7 @@ export const CONFIG = {
 };
 ```
 
-The `site.url` value should match the URL configured in `astro.config.mjs`.
+`site.url` is used for canonical URLs, Open Graph tags and the sitemap. It must be the final production URL (the `www` domain; the apex domain redirects to it).
 
 ---
 
@@ -128,11 +125,11 @@ Example:
   title: "Project Name",
   description: "A short description of the project.",
   href: "https://example.com",
-  dates: "2026",
   technologies: [
     "React",
     "TypeScript",
   ],
+  image: "/project-name.webp",
 }
 ```
 
@@ -188,12 +185,16 @@ Example:
 
 ```ts
 {
-  src: "/photos/kerala.jpg",
+  src: "/photos/kerala.webp",
   alt: "Kerala backwaters",
+  width: 1000,
+  height: 1333,
 }
 ```
 
-Use descriptive `alt` text for images.
+Use descriptive `alt` text for images, and set `width`/`height` to the image's real pixel size (prevents layout shift while photos load).
+
+Before adding a photo, resize it (about 1000px wide is plenty), convert it to WebP, and **strip its metadata**. Phone photos embed GPS coordinates in EXIF data, and anything in `public/` is publicly downloadable.
 
 ---
 
@@ -223,7 +224,11 @@ You can use Markdown, HTML, React components,
 and code blocks through MDX.
 ```
 
-The `image` field is optional when supported by the content schema.
+The `image` field is optional. `updatedAt` is also optional and is used for the post's modified date.
+
+The blog index is paginated statically (`/blog`, `/blog/2`, ...) using `blog.postsPerPage` from `src/data/config.ts`.
+
+While the folder has no posts, the build prints a "no files found" warning for the blog collection. That's expected and goes away once the first post is added.
 
 ---
 
@@ -261,9 +266,7 @@ For example:
 --font-sans: "Inter Variable", sans-serif;
 ```
 
-The project uses separate sans and mono fonts.
-
-The mono font is primarily used for code and technical content.
+Both `--font-sans` and `--font-mono` currently use Inter. To use a different mono font for code, install it and point `--font-mono` at it.
 
 ---
 
@@ -295,28 +298,6 @@ becomes:
 ```ts
 cardForeground;
 ```
-
----
-
-## Changing Font Size
-
-The base font size can be configured from:
-
-```text
-src/data/config.ts
-```
-
-Example:
-
-```ts
-typography: {
-  baseFontSize: 100,
-}
-```
-
-`100` represents the default size.
-
-Increasing the value scales the site's base typography.
 
 ---
 
@@ -426,6 +407,7 @@ http://localhost:4321
 | `npm run dev`     | Start the development server         |
 | `npm run build`   | Build the site for production        |
 | `npm run preview` | Preview the production build locally |
+| `npm run check`   | Type-check the project               |
 | `npm run astro`   | Run the Astro CLI                    |
 
 ---
@@ -452,11 +434,11 @@ Always run the production build before pushing major changes.
 
 The portfolio is deployed through [Vercel](https://vercel.com).
 
-The project is configured as a static Astro site and does not require a server-side or Cloudflare adapter.
+The project is a fully static Astro site, so no adapter or server function is needed. Security headers, asset caching and trailing-slash handling are configured in `vercel.json`.
 
 The production website is:
 
-**[pratixmistry.xyz](https://pratixmistry.xyz)**
+**[pratixmistry.xyz](https://www.pratixmistry.xyz)**
 
 ---
 
@@ -482,7 +464,7 @@ Then check:
 git status
 ```
 
-Make sure generated folders such as `node_modules`, `dist`, `.astro`, and `.wrangler` are ignored by Git.
+Make sure generated folders such as `node_modules`, `dist`, and `.astro` are ignored by Git.
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-export const prerender = true;
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { DATA } from "@/data/resume";
@@ -25,7 +24,7 @@ export async function getStaticPaths() {
 }
 
 const { post, previousPost, nextPost } = Astro.props;
-const { title, publishedAt, summary, image } = post.data;
+const { title, publishedAt, updatedAt, summary, image } = post.data;
 const slug = post.id;
 
 const { Content } = await render(post);
@@ -35,7 +34,7 @@ const jsonLd = JSON.stringify({
   "@type": "BlogPosting",
   headline: title,
   datePublished: publishedAt,
-  dateModified: publishedAt,
+  dateModified: updatedAt ?? publishedAt,
   description: summary,
   image: image
     ? image.startsWith("http")
@@ -55,6 +54,9 @@ const jsonLd = JSON.stringify({
   description={summary}
   image={image}
   canonicalURL={`${CONFIG.site.url}/blog/${slug}`}
+  type="article"
+  publishedTime={publishedAt}
+  modifiedTime={updatedAt ?? publishedAt}
 >
   <section id="blog">
     <script is:inline type="application/ld+json" set:html={jsonLd} />
