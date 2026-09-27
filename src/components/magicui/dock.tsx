@@ -1,12 +1,19 @@
 import { cn } from "@/lib/utils";
 import {
+  type HTMLMotionProps,
   motion,
   type MotionValue,
   useMotionValue,
   useSpring,
   useTransform,
 } from "motion/react";
-import { createContext, useContext, useRef, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useRef,
+  type ReactNode,
+  type Ref,
+} from "react";
 
 interface DockProps {
   className?: string;
@@ -15,9 +22,12 @@ interface DockProps {
   distance?: number;
 }
 
-interface DockIconProps {
+// Extra props and ref are forwarded so DockIcon works as a Radix `asChild` trigger.
+interface DockIconProps
+  extends Omit<HTMLMotionProps<"div">, "children" | "style" | "ref"> {
   className?: string;
   children?: ReactNode;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const DEFAULT_MAGNIFICATION = 60;
@@ -58,8 +68,18 @@ const Dock = ({
   );
 };
 
-const DockIcon = ({ className, children }: DockIconProps) => {
+const DockIcon = ({
+  className,
+  children,
+  ref: forwardedRef,
+  ...props
+}: DockIconProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const setRef = (node: HTMLDivElement | null) => {
+    ref.current = node;
+    if (typeof forwardedRef === "function") forwardedRef(node);
+    else if (forwardedRef) forwardedRef.current = node;
+  };
   const context = useContext(DockContext);
 
   if (!context) {
@@ -92,7 +112,8 @@ const DockIcon = ({ className, children }: DockIconProps) => {
 
   return (
     <motion.div
-      ref={ref}
+      {...props}
+      ref={setRef}
       style={{ width: containerSize, height: containerSize }}
       className={cn(
         "relative flex aspect-square items-center justify-center rounded-full shrink-0",
