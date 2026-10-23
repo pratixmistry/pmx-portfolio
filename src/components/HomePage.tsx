@@ -193,14 +193,23 @@ export default function HomePage() {
                 />
               </div>
               <BlurFade delay={BLUR_FADE_DELAY}>
-                <a
-                  href={DATA.contact.social.X.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex bg-primary rounded-full px-4 py-2 text-background font-medium"
-                >
-                  Follow on X
-                </a>
+                {DATA.sections.contact.availability ? (
+                  <a
+                    href="#contact"
+                    className="inline-flex bg-primary rounded-full px-4 py-2 text-background font-medium"
+                  >
+                    {DATA.sections.contact.availability.primary.label}
+                  </a>
+                ) : (
+                  <a
+                    href={DATA.contact.social.X.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex bg-primary rounded-full px-4 py-2 text-background font-medium"
+                  >
+                    Follow on X
+                  </a>
+                )}
               </BlurFade>
             </div>
           </div>

@@ -43,6 +43,13 @@
     @apply bg-background text-foreground;
   }
 
+  /* Smooth in-page jumps (e.g. hero "Hire me" -> #contact) unless reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   /* Shiki dual theme support */
   .shiki,
   .shiki span {
