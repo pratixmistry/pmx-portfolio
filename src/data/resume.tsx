@@ -36,12 +36,6 @@ export const DATA = {
       label: "Selected Projects",
       heading: "Check out my latest work",
       text: "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
-      // Client work under NDA: linked as a separate list, not shown individually
-      moreLink: {
-        label: "View Webflow Projects",
-        note: "More Webflow client work is under NDA, so it's listed separately in a private document.",
-        href: "https://docs.google.com/document/d/1jP1jSlvgenZeVESmgiCDBDNDJGL438McsCGZywNHju4/edit?tab=t.0",
-      },
     },
     photos: {
       order: 6,
@@ -55,6 +49,12 @@ export const DATA = {
       label: "Contact",
       heading: "Get in Touch",
       text: "Looking for my next frontend opportunity. Have something interesting in mind? Let’s talk.",
+      // Availability badge and hire CTAs; set to null to hide them
+      availability: {
+        status: "Open to work",
+        primary: { label: "Hire me", href: "mailto:pratixmistry@gmail.com?subject=Let%E2%80%99s%20work%20together" },
+        secondary: { label: "LinkedIn", href: "https://www.linkedin.com/in/pratixmistry/" },
+      },
     },
   },
   photos: [
@@ -196,30 +196,6 @@ export const DATA = {
         "Marketing website for an upcoming AI Analytics Platform, designed to introduce the product, its capabilities, and the value it brings to modern data teams.",
       technologies: ["React", "TypeScript"],
       image: "/platforms.webp",
-    },
-    {
-      title: "21 Media",
-      href: "https://21-media.webflow.io/",
-      active: true,
-      description:
-        "A visually driven website for a creative agency, designed to bring their work and creative direction to the forefront.",
-      technologies: ["Webflow"],
-      image: "/21m.webp",
-    },
-    {
-      title: "FinchTrack",
-      href: "https://finchtrack.vercel.app/",
-      active: true,
-      description:
-        "A personal finance tracker, with interactive dashboards, charts, and reports to make tracking everyday finances simpler.",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "TailwindCSS",
-        "Supabase",
-        "Shadcn",
-      ],
-      image: "/overview.webp",
     },
   ],
 } as const;
