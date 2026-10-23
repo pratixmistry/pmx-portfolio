@@ -13,6 +13,7 @@ export const CONFIG = {
   seo: {
     titleTemplate: "%s | %n", // %s = page title, %n = DATA.name
     twitterCard: "summary_large_image" as const,
+    twitterHandle: "@pratixmistry",
     robots: "index, follow",
   },
 

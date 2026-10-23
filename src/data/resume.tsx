@@ -8,8 +8,9 @@ export const DATA = {
   initials: "PM",
   location: "Ahmedabad, IN",
   locationLink: "https://www.google.com/maps/place/ahmedabad",
+  // Meta description for search and AI answers: who, where, what, availability (~155 chars)
   description:
-    "Frontend developer building thoughtful digital experiences. Usually coding, occasionally chasing places and stories.",
+    "Pratik Mistry is a frontend developer in Ahmedabad, India, with 3+ years building React, TypeScript, and Webflow websites and apps. Open to new frontend roles.",
   summary:
     "I’m Pratik - a frontend developer who spends most of his time turning designs and ideas into things people can actually use. I’ve spent the last 3+ years working across React, TypeScript, and Webflow, building everything from dashboards to marketing websites. \n\nAway from the screen, I’m usually out riding, exploring somewhere new, chasing good stories, or getting unnecessarily curious about an unreasonable number of things.",
   avatarUrl: "/picofme.webp",
@@ -58,21 +59,21 @@ export const DATA = {
     },
   },
   photos: [
-    { src: "/photos/photo1.webp", alt: "Photo 1", width: 1000, height: 1333 },
-    { src: "/photos/photo15.webp", alt: "Photo 15", width: 607, height: 607 },
-    { src: "/photos/photo14.webp", alt: "Photo 14", width: 1000, height: 563 },
-    { src: "/photos/photo4.webp", alt: "Photo 4", width: 1000, height: 1778 },
-    { src: "/photos/photo10.webp", alt: "Photo 10", width: 1000, height: 1333 },
-    { src: "/photos/photo2.webp", alt: "Photo 2", width: 1000, height: 1333 },
-    { src: "/photos/photo13.webp", alt: "Photo 13", width: 1000, height: 562 },
-    { src: "/photos/photo7.webp", alt: "Photo 7", width: 1000, height: 1333 },
-    { src: "/photos/photo6.webp", alt: "Photo 6", width: 1000, height: 1333 },
-    { src: "/photos/photo11.webp", alt: "Photo 11", width: 1000, height: 1778 },
-    { src: "/photos/photo9.webp", alt: "Photo 9", width: 1000, height: 1333 },
-    { src: "/photos/photo3.webp", alt: "Photo 3", width: 1000, height: 750 },
-    { src: "/photos/photo5.webp", alt: "Photo 5", width: 1000, height: 562 },
-    { src: "/photos/photo12.webp", alt: "Photo 12", width: 1000, height: 1778 },
-    { src: "/photos/photo8.webp", alt: "Photo 8", width: 1000, height: 1333 },
+    { src: "/photos/photo1.webp", alt: "Brick café wall with a 'look for tacos' poster above a hanging lamp", width: 1000, height: 1333 },
+    { src: "/photos/photo15.webp", alt: "Person sitting under a large tree on a seaside promenade, a ship on the horizon", width: 607, height: 607 },
+    { src: "/photos/photo14.webp", alt: "Person rowing a small boat on a quiet lake", width: 1000, height: 563 },
+    { src: "/photos/photo4.webp", alt: "Person photographing a sandy beach at golden hour", width: 1000, height: 1778 },
+    { src: "/photos/photo10.webp", alt: "Black-and-white photo of rowing boats moored on a calm lake below a hill", width: 1000, height: 1333 },
+    { src: "/photos/photo2.webp", alt: "Motorcyclist in a red jacket riding beside the sea at sunset", width: 1000, height: 1333 },
+    { src: "/photos/photo13.webp", alt: "Two adventure motorcycles parked on a road through misty green hills", width: 1000, height: 562 },
+    { src: "/photos/photo7.webp", alt: "Lake with a small island ringed by hills, seen past cactus on a rocky ledge", width: 1000, height: 1333 },
+    { src: "/photos/photo6.webp", alt: "Pratik leaning on a motorcycle in riding gear", width: 1000, height: 1333 },
+    { src: "/photos/photo11.webp", alt: "Close-up of rough, foaming sea waves", width: 1000, height: 1778 },
+    { src: "/photos/photo9.webp", alt: "Feet in sneakers at the edge of a dark sand beach as a wave rolls in", width: 1000, height: 1333 },
+    { src: "/photos/photo3.webp", alt: "Sun setting between hills, reflected in a still lake", width: 1000, height: 750 },
+    { src: "/photos/photo5.webp", alt: "Hiker with a backpack looking out over tall grass and trees", width: 1000, height: 562 },
+    { src: "/photos/photo12.webp", alt: "Turquoise waves breaking on a rocky shore under overhanging leaves", width: 1000, height: 1778 },
+    { src: "/photos/photo8.webp", alt: "Black-and-white view of an airplane wing over a city and canal", width: 1000, height: 1333 },
   ],
   skills: [
     {
@@ -97,7 +98,7 @@ export const DATA = {
         "https://vercel.com/vc-ap-b3331f/_next/static/immutable/media/next-js-light.14klor1i4ixj-.svg",
     },
     {
-      name: "Typescript",
+      name: "TypeScript",
       iconLight:
         "https://cdn.brandfetch.io/idKX_Hb7va/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B",
       iconDark:

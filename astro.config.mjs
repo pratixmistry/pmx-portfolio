@@ -8,6 +8,12 @@ import { unified } from "@astrojs/markdown-remark";
 import rehypePrettyCode from "rehype-pretty-code";
 import { remarkCodeMeta } from "./src/lib/remark-code-meta.ts";
 import { CONFIG } from "./src/data/config.ts";
+import { readdirSync } from "node:fs";
+
+// Leave /blog out of the sitemap until there is at least one post (it's noindex while empty)
+const hasBlogPosts = readdirSync(new URL("./src/content/blog", import.meta.url), {
+  recursive: true,
+}).some((file) => String(file).endsWith(".mdx"));
 
 /** @type {import('rehype-pretty-code').Options} */
 const prettyCodeOptions = {
@@ -40,6 +46,8 @@ export default defineConfig({
   integrations: [
     react(),
     mdx(), // inherits markdown.processor
-    sitemap(),
+    sitemap({
+      filter: (page) => hasBlogPosts || !new URL(page).pathname.startsWith("/blog"),
+    }),
   ],
 });

@@ -75,7 +75,7 @@ export default function WorkSection() {
               </div>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="p-0 ml-13 text-xs sm:text-sm text-muted-foreground text-justify">
+          <AccordionContent forceMount className="p-0 ml-13 text-xs sm:text-sm text-muted-foreground text-justify">
             {work.description}
           </AccordionContent>
         </AccordionItem>

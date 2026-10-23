@@ -24,7 +24,12 @@ const posts = page.data.map((post) => ({
 }));
 ---
 
-<Layout title="Blog" description="Thoughts on software development, life, and more.">
+<!-- An empty blog is thin content: keep it out of search until there are posts -->
+<Layout
+  title="Blog"
+  description="Thoughts on software development, life, and more."
+  noindex={page.total === 0}
+>
   <BlogList
     client:load
     posts={posts}
