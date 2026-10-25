@@ -216,5 +216,14 @@ export const DATA = {
       technologies: ["Next.js", "React", "TypeScript"],
       image: "/finchtrack.webp",
     },
+    {
+      title: "Personal Portfolio",
+      href: "https://www.pratixmistry.xyz/",
+      active: true,
+      description:
+        "This site: a fast, fully static portfolio built with Astro and React islands, with light and dark themes, accessible animations, and structured data and llms.txt for search and AI answers.",
+      technologies: ["Astro", "React", "TypeScript"],
+      image: "/pratixmistry-cover-purple.webp",
+    },
   ],
 } as const;
