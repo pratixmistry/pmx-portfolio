@@ -203,7 +203,7 @@ export const DATA = {
       href: "https://21-media.webflow.io/",
       active: true,
       description:
-        "Website for a creative agency built around one idea: connect people, not just pixels. It brings together bold visuals, clear storytelling, and a seamless user experience.",
+        "A creative agency website built around one simple idea: connect people, not just pixels. Bold visuals and clear storytelling come together in a smooth, seamless experience.",
       technologies: ["Webflow"],
       image: "/21Media.webp",
     },
@@ -212,7 +212,7 @@ export const DATA = {
       href: "https://finchtrack.vercel.app/",
       active: true,
       description:
-        "A full-stack personal finance app for managing transactions, accounts, budgets, and investments, with interactive dashboards, reports, and CSV export. User data is isolated with PostgreSQL Row Level Security.",
+        "A full-stack personal finance manager that brings transactions, budgets, and investments into one place, with interactive dashboards and reports that make your financial position easy to understand.",
       technologies: ["Next.js", "React", "TypeScript"],
       image: "/finchtrack.webp",
     },
@@ -221,7 +221,7 @@ export const DATA = {
       href: "https://www.pratixmistry.xyz/",
       active: true,
       description:
-        "This site: a fast, fully static portfolio built with Astro and React islands, with light and dark themes, accessible animations, and structured data and llms.txt for search and AI answers.",
+        "A little corner of the internet that brings together the work I do, the things I build, and the places I explore, with a clean, minimal design, selected projects, and a personal travel gallery.",
       technologies: ["Astro", "React", "TypeScript"],
       image: "/pratixmistry-cover-purple.webp",
     },
