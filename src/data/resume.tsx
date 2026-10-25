@@ -198,5 +198,23 @@ export const DATA = {
       technologies: ["React", "TypeScript"],
       image: "/platforms.webp",
     },
+    {
+      title: "21 Media",
+      href: "https://21-media.webflow.io/",
+      active: true,
+      description:
+        "Website for a creative agency built around one idea: connect people, not just pixels. It brings together bold visuals, clear storytelling, and a seamless user experience.",
+      technologies: ["Webflow"],
+      image: "/21Media.webp",
+    },
+    {
+      title: "FinchTrack",
+      href: "https://finchtrack.vercel.app/",
+      active: true,
+      description:
+        "A full-stack personal finance app for managing transactions, accounts, budgets, and investments, with interactive dashboards, reports, and CSV export. User data is isolated with PostgreSQL Row Level Security.",
+      technologies: ["Next.js", "React", "TypeScript"],
+      image: "/finchtrack.webp",
+    },
   ],
 } as const;

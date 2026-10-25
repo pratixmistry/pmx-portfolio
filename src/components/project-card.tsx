@@ -44,19 +44,18 @@ export function ProjectCard({
   className,
 }: Props) {
   return (
+    // The title link stretches over the whole card (after:inset-0), so the
+    // card is one click target and one tab stop named after the project.
     <div
       className={cn(
-        "flex flex-col h-full border border-border overflow-hidden rounded-[4px]",
+        "group relative flex flex-col h-full border border-border overflow-hidden rounded-[4px] transition-colors",
+        href &&
+          "hover:border-foreground/20 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring has-[a:focus-visible]:ring-offset-2 has-[a:focus-visible]:ring-offset-background",
         className,
       )}
     >
       <div className="relative shrink-0">
-        <a
-          href={href || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block aspect-video overflow-hidden"
-        >
+        <div className="block aspect-video overflow-hidden">
           {video ? (
             <video
               src={video}
@@ -71,7 +70,7 @@ export function ProjectCard({
           ) : (
             <div className="w-full h-full bg-muted" />
           )}
-        </a>
+        </div>
         {/* {links && links.length > 0 && (
           <div className="absolute top-2 right-2 flex flex-wrap gap-2">
             {links.map((link, idx) => (
@@ -97,18 +96,29 @@ export function ProjectCard({
       <div className="p-4 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-1">
-            <h3 className="font-semibold uppercase">{title}</h3>
+            <h3 className="font-semibold uppercase">
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+                >
+                  {title}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : (
+                title
+              )}
+            </h3>
             {/* <time className="text-xs text-muted-foreground">{dates}</time> */}
           </div>
-          <a
-            href={href || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pt-1 text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-            aria-label={`Open ${title}`}
-          >
-            <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </a>
+          {href && (
+            <ArrowUpRight
+              className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-foreground"
+              aria-hidden
+            />
+          )}
         </div>
         <div className="text-xs flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
           {toParagraphs(description).map((paragraph) => (
