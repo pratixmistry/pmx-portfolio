@@ -198,32 +198,5 @@ export const DATA = {
       technologies: ["React", "TypeScript"],
       image: "/platforms.webp",
     },
-    {
-      title: "21 Media",
-      href: "https://21-media.webflow.io/",
-      active: true,
-      description:
-        "A creative agency website built around one simple idea: connect people, not just pixels. Bold visuals and clear storytelling come together in a smooth, seamless experience.",
-      technologies: ["Webflow"],
-      image: "/21Media.webp",
-    },
-    {
-      title: "FinchTrack",
-      href: "https://finchtrack.vercel.app/",
-      active: true,
-      description:
-        "A full-stack personal finance manager that brings transactions, budgets, and investments into one place, with interactive dashboards and reports that make your financial position easy to understand.",
-      technologies: ["Next.js", "React", "TypeScript"],
-      image: "/finchtrack.webp",
-    },
-    {
-      title: "Personal Portfolio",
-      href: "https://www.pratixmistry.xyz/",
-      active: true,
-      description:
-        "A little corner of the internet that brings together the work I do, the things I build, and the places I explore, with a clean, minimal design, selected projects, and a personal travel gallery.",
-      technologies: ["Astro", "React", "TypeScript"],
-      image: "/pratixmistry-cover-purple.webp",
-    },
   ],
 } as const;
