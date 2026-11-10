@@ -4,7 +4,7 @@ import { House, Library } from "lucide-react";
 export const DATA = {
   name: "Pratik Mistry",
   siteName: "pratixmistry",
-  designation: "Frontend Developer",
+  designation: "Frontend & Webflow Developer",
   initials: "PM",
   location: "Ahmedabad, IN",
   locationLink: "https://www.google.com/maps/place/ahmedabad",
